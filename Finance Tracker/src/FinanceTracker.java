@@ -9,26 +9,41 @@ public class FinanceTracker {
       FinanceTracker financeTracker=new FinanceTracker();
 
 
-
-       while (true) {
+       boolean flag=true;
+       while (flag) {
            try {
-               System.out.println("Введите категорию (введите exit для выхода):");
-               String cuurent = scanner.nextLine();
-               if (cuurent.equalsIgnoreCase("exit")) {
-                   System.out.println("До свидания");
-                   break;
+
+               financeTracker.showMenu();
+               int current=scanner.nextInt();
+               scanner.nextLine();
+               switch (current){
+                   case 1:
+                       System.out.println("Введите категорию:");
+                       String cuurent = scanner.nextLine();
+
+                       System.out.println("Введите сумму: ");
+                       int money = scanner.nextInt();
+                       scanner.nextLine();
+                       financeTracker.saveExpense(cuurent, money);
+                       break;
+
+                   case 2:
+                       financeTracker.printAllExpenses();
+                       break;
+                   case 3:
+                       System.out.println("Вся сумма трат: "+ financeTracker.printAllSum());
+                       break;
+                   case 4:
+                       flag=false;
+                       break;
+                   default:
+                       System.out.println("Некоректный ввод");
+
                }
 
-               if (cuurent.isEmpty()) {
-                   System.out.println("Строка не дожна быть пустой");
-                   continue;
-               }
-               System.out.println("Введите сумму: ");
-               int money = scanner.nextInt();
-               scanner.nextLine();
-               financeTracker.saveExpense(cuurent, money);
-               financeTracker.printAllExpenses();
-               System.out.println("Вся сумма трат: "+ financeTracker.printAllSum());
+
+
+
 
 
 
@@ -38,11 +53,12 @@ public class FinanceTracker {
            }
 
        }
-       scanner.close();
+
 
    }
 
        private HashMap<String,Integer> expenses=new HashMap<>();
+
 
         void saveExpense(String category,int money){
             int amount=expenses.getOrDefault(category,0);
@@ -62,6 +78,14 @@ public class FinanceTracker {
             }
             return total;
         }
+        void showMenu(){
+            System.out.println("\n--- Меню ---");
+            System.out.println("1-Добавить трату");
+            System.out.println("2-Показать все траты");
+            System.out.println("3-Показать общую сумму");
+            System.out.println("4-Выход");
+        }
 
     }
+
 
