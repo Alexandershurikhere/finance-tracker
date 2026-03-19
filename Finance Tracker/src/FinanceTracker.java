@@ -28,7 +28,7 @@ public class FinanceTracker {
                scanner.nextLine();
                financeTracker.saveExpense(cuurent, money);
                financeTracker.printAllExpenses();
-
+                System.out.println("Вся сумма трат: "+ financeTracker.printAllSum());
 
 
            } catch (InputMismatchException e) {
@@ -52,6 +52,13 @@ public class FinanceTracker {
             for(String key: expenses.keySet()){
                 System.out.println(key+": "+ expenses.get(key)+" руб.");
             }
+        }
+       int printAllSum(){
+            int total=0;
+            for(int amount:expenses.values()){
+                total=total+amount;
+            }
+            return total;
         }
 
     }
